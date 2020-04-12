@@ -4,7 +4,7 @@
   "private": true,
   "proxy": {
     "/socket.io": {
-      "target": "http://localhost:8081/",
+      "target": "http://chatserver:9081/",
       "ws": true
     }
   },
