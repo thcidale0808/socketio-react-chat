@@ -1,13 +1,6 @@
 {
   "name": "client",
   "version": "0.1.0",
-  "private": true,
-  "proxy": {
-    "/socket.io": {
-      "target": "http://chatserver:9081/",
-      "ws": true
-    }
-  },
   "dependencies": {
     "@blueprintjs/core": "^3.0.0",
     "@blueprintjs/icons": "^3.0.0",

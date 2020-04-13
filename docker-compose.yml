@@ -2,18 +2,20 @@ version: '3'
 
 services:
   chatserver:
-    build:
-      context: ./server
-      dockerfile: Dockerfile
+    build: ./server
+    volumes:
+      - ./server:/usr/app
     ports:
       - 9081:9081
 
-  chatclient:
-    build:
-      context: ./client
-      dockerfile: Dockerfile
-    ports:
-      - 8080:8080
+  # # chatclient:
+  # #   build: ./client
+  # #   volumes:
+  # #     - ./client:/usr/app
+  # #   ports:
+  # #     - 8080:8080
 
-  rabbitmq:
-    image: rabbitmq:3.7.4
+  # # rabbitmq:
+  # #   image: rabbitmq:3.7.4
+  # #   ports: 
+  #     - 5672:5672
