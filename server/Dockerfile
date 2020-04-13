@@ -8,6 +8,5 @@ RUN npm install --quiet
 RUN npm install nodemon -g
 RUN cp config-sample.json config.json
 
-# CMD [ "nodemon", "dist/index.js", "-" , "npx", "tsc", "--watch"]
-CMD nodemon index.js \
+CMD nodemon dist/index.js \
  & npx tsc --watch 

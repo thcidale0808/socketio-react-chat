@@ -1,7 +1,6 @@
 import * as io from 'socket.io-client';
 
-const scheme = process.env.NODE_ENV === 'production' ? 'wss' : 'ws';
-export const socket = io(`${scheme}://${window.location.host}`);
+export const socket = io(`http://localhost:9081`);
 
 let latestVersion = 0;
 
