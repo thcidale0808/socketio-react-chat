@@ -3,15 +3,14 @@ version: '3'
 services:
   chatserver:
     build: ./server/
-    volumes:
-      - ./server:/usr/app
+    container_name: chatserver
     ports:
       - 9081:9081
 
   chatclient:
     build: ./client/
     volumes:
-      - ./client:/usr/app
+      - "./client:/usr/app"
     ports:
       - 8080:8080
 
