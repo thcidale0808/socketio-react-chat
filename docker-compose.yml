@@ -14,7 +14,12 @@ services:
       dockerfile: Dockerfile
     ports:
       - 8080:8080
-
+  
+  consumer:
+    build:
+      context: ./consumer
+      dockerfile: Dockerfile
+      
   rabbitmq:
     image: rabbitmq:3-management
     ports:

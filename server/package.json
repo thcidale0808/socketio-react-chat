@@ -15,16 +15,20 @@
   },
   "homepage": "https://github.com/sb-js/socketio-react-chat#readme",
   "dependencies": {
+    "amqp-ts": "^1.8.0",
+    "bluebird": "^3.7.2",
     "lodash": "^4.17.10",
     "openid-client": "^2.1.0",
     "shortid": "^2.2.11",
-    "socket.io": "^2.1.1"
+    "socket.io": "^2.1.1",
+    "winston": "^3.2.1"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.116",
     "@types/node": "^10.3.5",
     "@types/shortid": "0.0.29",
     "@types/socket.io": "^1.4.36",
+    "@types/amqplib": "^0.5.13",
     "typescript": "^2.9.2"
   }
 }
