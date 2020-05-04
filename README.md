@@ -3,6 +3,7 @@
 This project was bootstrapped with [create-react-app-typescript](https://github.com/wmonk/create-react-app-typescript).
 
 The purpose of this is to see how to use modern web libraries together in a single, cohesive web app. Sometimes it's more helpful to see real world examples, because those are the places we run into questions about design or architecture choices.
+It also shows how to hook socket.io with RabbitMQ for one event.
 
 ## Libraries
 
