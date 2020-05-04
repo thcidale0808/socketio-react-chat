@@ -20,19 +20,10 @@ I also have [an example](server/global.d.ts) of how to add missing type definiti
 
 ## Run
 
-Server:
+Make sure that you have docker installed. Execute the following:
 
-    $ cd server
-    $ cp config-sample.json config.json
-    $ npm install
-    $ npx tsc
-    $ node dist/index.js
+    $ docker-compose up --build
 
-Client:
-
-    $ cd client
-    $ npm install
-    $ npm start
 
 ## Visuals
 
