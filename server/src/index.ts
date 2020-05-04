@@ -6,6 +6,8 @@ import { GoogleAuth } from './googleAuth';
 import * as Rooms from './model/room';
 import * as Shared from './SharedTypes';
 import * as Users from './model/user';
+import * as Amqp from 'amqp-ts';
+
 
 Rooms.ensureDefaultRoom();
 
@@ -22,6 +24,8 @@ function normalizeUser(user: Users.User): Shared.User {
     token: user.token,
   };
 }
+
+
 
 function normalizeEvent(event: Chats.ChatEvent): Shared.ChatEvent {
   switch (event.type) {
@@ -53,8 +57,13 @@ GoogleAuth.create({
   clientSecret: config.oauth.clientSecret,
   clientId: config.oauth.clientId,
   callbackUrl: config.oauth.callback,
-}).then(googleAuth => {
+}).then(async googleAuth => {
+  const mqConnection = new Amqp.Connection('amqp://rabbitmq');
 
+  const exchange = await mqConnection.declareExchange('exchange')
+  const queue = await mqConnection.declareQueue('queue')
+  queue.bind(exchange)
+  
   server.on('connection', socket => {
 
     socket.ip = socket.handshake.headers['x-forwarded-for'] || socket.handshake.address;
@@ -164,9 +173,28 @@ GoogleAuth.create({
       else {
         event = normalizeEvent(Chats.addChatMessage(socket.user, socket.room, text));
       }
+      
+      //Send message to RabbitMQ
+      const message = new Amqp.Message({roomName:socket.room.name,roomId:socket.room.id, ...event})
+      exchange.send(message)
 
-      server.to(socket.room.name).emit('new message', event);
     });
+
+    //Listen messages from RabbitMQ consumer service
+    socket.on('new queuemessage', (msg: any) => {
+      console.log(msg)
+      const event ={
+        type: msg.type,
+        n: msg.roomId,
+        guest: msg.guest,
+        nick: msg.nick,
+        text: msg.text,
+      }
+       
+      server.to('general').emit('new message', event);
+     
+    });
+   
 
     socket.on('change nick', (nick: string) => {
       if (!socket.user) return;
